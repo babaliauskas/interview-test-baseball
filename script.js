@@ -110,7 +110,7 @@ setTimeout(function () {
             this.append('g')
                 .append('text')
                 .classed('chart-header', true)
-                .attr('transform', 'translate(0,-30)')
+                .attr('transform', 'translate(-70,-40)')
                 .text('')
         }
     }
@@ -154,7 +154,10 @@ setTimeout(function () {
                     BA: d.BA,
                     H: d.H,
                     Run: d.R,
-                    HomeRun: d.HR
+                    HomeRun: d.HR,
+                    Month: d.Split,
+                    second: d['2B'],
+                    third: d['3B']
                 }
             })
             // enter()
@@ -173,7 +176,10 @@ setTimeout(function () {
                     var str = 'Player: ' + d.Player + ' '
                     str += 'Bating avg: ' + d.BA + ' '
                     str += 'Runs: ' + d.Run + ' '
-                    str += 'Home Run: ' + d.HomeRun
+                    str += 'Home Run: ' + d.HomeRun + ' '
+                    str += 'Month: ' + d.Month + ' '
+                    str += '2nd: ' + d.second + ' '
+                    str += '3rd: ' + d.third
 
                     d3.select('.chart-header').text(str)
                 })
