@@ -13,16 +13,10 @@ var height = h - margin.top - margin.bottom;
 var data;
 var month = 'June'
 
-d3.csv("data.csv", function (data1) {
-    data = data1.filter(function (e) {
-        return e.Split
-    });
-});
+d3.csv("data.csv", data1 => data = data1.filter(e => e.Split));
 setTimeout(function () {
     var x = d3.scale.ordinal()
-        .domain(data.map(function (e) {
-            return e.Player
-        }))
+        .domain(data.map(e => e.Player))
         .rangeBands([0, width])
     var y = d3.scale.linear()
         .domain([0, 0.5])
@@ -35,18 +29,14 @@ setTimeout(function () {
         .scale(y)
         .orient('left')
         .ticks(10)
-        .tickFormat(function (d) {
-            return d.toFixed(3)
-        })
+        .tickFormat(d => d.toFixed(3))
     var colorScale = d3.scale.category10()
 
     var xGridlines = d3.svg.axis()
         .scale(x)
         .tickSize(-height, -height)
         .tickFormat('')
-        .tickValues(data.map(function (d) {
-            return d.Player
-        }))
+        .tickValues(data.map(d => d.Player))
         .orient('bottom')
     var yGridlines = d3.svg.axis()
         .scale(y)
@@ -150,15 +140,11 @@ setTimeout(function () {
             .attr('class', d => d)
             .classed('stats', true)
         this.selectAll('.stats')
-            .style('fill', function (d, i) {
-                return colorScale(i)
-            })
+            .style('fill', (d, i) => colorScale(i))
 
         list2.forEach((e, k) => {
             var g = self.selectAll('g.' + e)
             var arr = list[k].map((d, i) => {
-
-                console.log(d)
                 return {
                     key: e,
                     value: d.BA,
@@ -179,7 +165,7 @@ setTimeout(function () {
                 .classed('response', true)
             // update
             g.selectAll('.response')
-                .attr('r', 6)
+                .attr('r', 8)
                 .attr('cx', d => x(d.Player))
                 .attr('cy', d => y(d.value))
                 .attr('transform', 'translate(' + width / 10 + ',0)')
@@ -189,13 +175,11 @@ setTimeout(function () {
                     str += 'Runs: ' + d.Run + ', '
                     str += 'Home Run: ' + d.HomeRun + ', '
                     str += 'Month: ' + d.Month + ', '
-                    str += '2nd: ' + d.second 
+                    str += '2nd: ' + d.second
 
                     d3.select('.chart-header').text(str)
                 })
-                .on('mouseout', function (d, i) {
-                    d3.select('.chart-header').text('')
-                })
+                .on('mouseout', () => d3.select('.chart-header').text(''))
             //exit()
             g.selectAll('.response')
                 .data(arr)

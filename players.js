@@ -13,16 +13,10 @@ var height = h - margin.top - margin.bottom;
 var data;
 var month = 'June'
 
-d3.csv("data.csv", function (data1) {
-    data = data1.filter(function (e) {
-        return e.Split
-    });
-});
+d3.csv("data.csv", data1 => data = data1.filter(e => e.Split));
 setTimeout(function () {
     var x = d3.scale.ordinal()
-        .domain(data.map(function (e) {
-            return e.Split
-        }))
+        .domain(data.map(e => e.Split))
         .rangeBands([0, width])
     var y = d3.scale.linear()
         .domain([0, 0.5])
@@ -35,25 +29,20 @@ setTimeout(function () {
         .scale(y)
         .orient('left')
         .ticks(10)
-        .tickFormat(function (d) {
-            return d.toFixed(3)
-        })
+        .tickFormat(d => d.toFixed(3))
 
     var line = d3.svg.line()
-                .x(d => x(d.Split))
-                .y(d => y(d.BA))
-                .interpolate('cardinal')
+        .x(d => x(d.Split))
+        .y(d => y(d.BA))
+        .interpolate('cardinal')
 
     var colorScale = d3.scale.category10()
-    var ordinalColorScale = d3.scale.category20()
 
     var xGridlines = d3.svg.axis()
         .scale(x)
         .tickSize(-height, -height)
         .tickFormat('')
-        .tickValues(data.map(function (d) {
-            return d.Split
-        }))
+        .tickValues(data.map(d => d.Split))
         .orient('bottom')
     var yGridlines = d3.svg.axis()
         .scale(y)
@@ -152,9 +141,7 @@ setTimeout(function () {
             .attr('class', d => d)
             .classed('stats', true)
         this.selectAll('.stats')
-            .style('fill', function (d, i) {
-                return colorScale(i)
-            })
+            .style('fill', (d, i) => colorScale(i))
 
         list2.forEach((e, k) => {
             var g = self.selectAll('g.' + e)
@@ -176,8 +163,8 @@ setTimeout(function () {
             g.selectAll('.trendline')
                 .data([arr])
                 .enter()
-                    .append('path')
-                    .classed('trendline', true)
+                .append('path')
+                .classed('trendline', true)
             g.selectAll('.response')
                 .data(arr)
                 .enter()
@@ -188,7 +175,7 @@ setTimeout(function () {
                 .attr('d', d => line(d))
                 .attr('transform', 'translate(' + width / 12 + ',0)')
             g.selectAll('.response')
-                .attr('r', 6)
+                .attr('r', 8)
                 .attr('cx', d => x(d.Split))
                 .attr('cy', d => y(d.value))
                 .attr('transform', 'translate(' + width / 12 + ',0)')
@@ -198,13 +185,10 @@ setTimeout(function () {
                     str += 'Runs: ' + d.Run + ', '
                     str += 'Home Run: ' + d.HomeRun + ', '
                     str += 'Month: ' + d.Month + ', '
-                    str += '2nd: ' + d.second 
-
+                    str += '2nd: ' + d.second
                     d3.select('.chart-header').text(str)
                 })
-                .on('mouseout', function (d, i) {
-                    d3.select('.chart-header').text('')
-                })
+                .on('mouseout', () => d3.select('.chart-header').text(''))
             //exit()
             g.selectAll('.trendline')
                 .data([arr])
