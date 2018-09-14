@@ -1,7 +1,7 @@
 body,
 html {
     margin: 0;
-    padding-top: 30px;
+    padding-top: 10px;
     font-family: "Arial", sans-serif;
     font-size: 0.95em;
     text-align: center;
@@ -15,6 +15,7 @@ a {
     margin-top: 30px;
     background-color: #F5F2EB;
     border: 1px solid #CCC;
+    box-shadow: 3px 3px 10px  rgb(141, 141, 141);
 }
 
 .axis path,
@@ -41,6 +42,7 @@ a {
 
 .chart-header {
     font-size: 110%;
+    
 }
 
 .blaa {
@@ -69,4 +71,14 @@ a {
 }
 .Minesota path {
     stroke: rgb(238, 117, 238)
+}
+#controls {
+    margin: 30px;
+}
+.btn {
+    padding: 10px;
+    color: white;
+    margin: 0 5px;
+    box-shadow: 3px 3px 10px  rgb(141, 141, 141);
+    outline: none;
 }

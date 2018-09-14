@@ -1,7 +1,7 @@
 var w = 800;
 var h = 600;
 var margin = {
-    top: 100,
+    top: 60,
     bottom: 40,
     left: 120,
     right: 60
@@ -68,21 +68,33 @@ setTimeout(function () {
     var april = controls.append('button')
         .html('April/March: show')
         .attr('state', 1)
+        .style('background', '#1f77b4')
+        .attr('class', 'btn')
     var may = controls.append('button')
         .html('May: show')
         .attr('state', 1)
+        .style('background', '#ff7f0e')
+        .attr('class', 'btn')
     var june = controls.append('button')
         .html('June: show')
         .attr('state', 1)
+        .style('background', '#2ca02c')
+        .attr('class', 'btn')
     var july = controls.append('button')
         .html('July: show')
         .attr('state', 1)
+        .style('background', '#d62728')
+        .attr('class', 'btn')
     var august = controls.append('button')
         .html('August: show')
         .attr('state', 1)
+        .style('background', '#9467bd')
+        .attr('class', 'btn')
     var september = controls.append('button')
         .html('Sept/Oct: show')
         .attr('state', 1)
+        .style('background', '#8c564b')
+        .attr('class', 'btn')
 
     function drawAxis(params) {
         if (params.initialize) {
@@ -110,7 +122,7 @@ setTimeout(function () {
             this.append('g')
                 .append('text')
                 .classed('chart-header', true)
-                .attr('transform', 'translate(-30,-40)')
+                .attr('transform', 'translate(-30,-20)')
                 .text('')
         }
     }
