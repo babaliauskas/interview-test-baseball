@@ -6,6 +6,10 @@ html {
     font-size: 0.95em;
     text-align: center;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
 
 #chart {
     margin-top: 30px;
@@ -37,4 +41,32 @@ html {
 
 .chart-header {
     font-size: 110%;
+}
+
+.blaa {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.trendline {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 4;
+    opacity: 0.5
+}
+.Brian path {
+    stroke: rgb(111, 238, 111)
+}
+.Byron path {
+    stroke: rgb(241, 187, 85)
+}
+.Joe path {
+    stroke: rgb(103, 103, 250)
+}
+.Eddie path {
+    stroke: rgb(253, 131, 131)
+}
+.Minesota path {
+    stroke: rgb(238, 117, 238)
 }

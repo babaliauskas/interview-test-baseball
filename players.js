@@ -21,7 +21,7 @@ d3.csv("data.csv", function (data1) {
 setTimeout(function () {
     var x = d3.scale.ordinal()
         .domain(data.map(function (e) {
-            return e.Player
+            return e.Split
         }))
         .rangeBands([0, width])
     var y = d3.scale.linear()
@@ -38,14 +38,21 @@ setTimeout(function () {
         .tickFormat(function (d) {
             return d.toFixed(3)
         })
+
+    var line = d3.svg.line()
+                .x(d => x(d.Split))
+                .y(d => y(d.BA))
+                .interpolate('cardinal')
+
     var colorScale = d3.scale.category10()
+    var ordinalColorScale = d3.scale.category20()
 
     var xGridlines = d3.svg.axis()
         .scale(x)
         .tickSize(-height, -height)
         .tickFormat('')
         .tickValues(data.map(function (d) {
-            return d.Player
+            return d.Split
         }))
         .orient('bottom')
     var yGridlines = d3.svg.axis()
@@ -65,23 +72,20 @@ setTimeout(function () {
     var controls = d3.select('body')
         .append('div')
         .attr('id', 'controls')
-    var april = controls.append('button')
-        .html('April/March: show')
+    var joe = controls.append('button')
+        .html('Joe Mauer: show')
         .attr('state', 1)
-    var may = controls.append('button')
-        .html('May: show')
+    var byron = controls.append('button')
+        .html('Byron Buxton: show')
         .attr('state', 1)
-    var june = controls.append('button')
-        .html('June: show')
+    var brian = controls.append('button')
+        .html('Brian Dozier: show')
         .attr('state', 1)
-    var july = controls.append('button')
-        .html('July: show')
+    var eddie = controls.append('button')
+        .html('Eddie Rosario: show')
         .attr('state', 1)
-    var august = controls.append('button')
-        .html('August: show')
-        .attr('state', 1)
-    var september = controls.append('button')
-        .html('Sept/Oct: show')
+    var minesota = controls.append('button')
+        .html('Minesota Twins: show')
         .attr('state', 1)
 
     function drawAxis(params) {
@@ -118,13 +122,13 @@ setTimeout(function () {
     function plot(params) {
         drawAxis.call(this, params)
         var list = []
-        var list2 = ['April', 'May', 'June', 'July', 'August', 'Sep']
+        var list2 = ['Joe', 'Byron', 'Brian', 'Eddie', 'Minesota']
         var self = this
         let groupedData = params.data.reduce((cum, cur) => {
-            if (!cum[cur.Split]) {
-                cum[cur.Split] = [cur]
+            if (!cum[cur.Player]) {
+                cum[cur.Player] = [cur]
             } else {
-                cum[cur.Split].push(cur)
+                cum[cur.Player].push(cur)
             }
             return cum
         }, {})
@@ -145,8 +149,6 @@ setTimeout(function () {
         list2.forEach((e, k) => {
             var g = self.selectAll('g.' + e)
             var arr = list[k].map((d, i) => {
-
-                console.log(d)
                 return {
                     key: e,
                     value: d.BA,
@@ -156,21 +158,30 @@ setTimeout(function () {
                     Run: d.R,
                     HomeRun: d.HR,
                     Month: d.Split,
-                    second: d['2B']
+                    second: d['2B'],
+                    Split: d.Split
                 }
             })
             // enter()
+            g.selectAll('.trendline')
+                .data([arr])
+                .enter()
+                    .append('path')
+                    .classed('trendline', true)
             g.selectAll('.response')
                 .data(arr)
                 .enter()
                 .append('circle')
                 .classed('response', true)
             // update
+            g.selectAll('.trendline')
+                .attr('d', d => line(d))
+                .attr('transform', 'translate(' + width / 12 + ',0)')
             g.selectAll('.response')
                 .attr('r', 6)
-                .attr('cx', d => x(d.Player))
+                .attr('cx', d => x(d.Split))
                 .attr('cy', d => y(d.value))
-                .attr('transform', 'translate(' + width / 10 + ',0)')
+                .attr('transform', 'translate(' + width / 12 + ',0)')
                 .on('mouseover', function (d, i) {
                     var str = 'Player: ' + d.Player + ', '
                     str += 'Bating avg: ' + d.BA + ', '
@@ -185,6 +196,10 @@ setTimeout(function () {
                     d3.select('.chart-header').text('')
                 })
             //exit()
+            g.selectAll('.trendline')
+                .data([arr])
+                .exit()
+                .remove()
             g.selectAll('.response')
                 .data(arr)
                 .exit()
@@ -192,11 +207,11 @@ setTimeout(function () {
         })
     }
 
-    april.on('click', function () {
+    joe.on('click', function () {
         var self = d3.select(this)
         var state = +self.attr('state')
-        var txt = 'March/April: '
-        var hideShow = d3.selectAll('.April')
+        var txt = 'Joe Mauer: '
+        var hideShow = d3.selectAll('.Joe')
         var display = +hideShow.style('display')
         if (state === 0) {
             state = 1
@@ -211,11 +226,11 @@ setTimeout(function () {
         self.attr('state', state)
         self.html(txt)
     })
-    may.on('click', function () {
+    byron.on('click', function () {
         var self = d3.select(this)
         var state = +self.attr('state')
-        var txt = 'May: '
-        var hideShow = d3.selectAll('.May')
+        var txt = 'Byron Buxton: '
+        var hideShow = d3.selectAll('.Byron')
         var display = +hideShow.style('display')
         if (state === 0) {
             state = 1
@@ -230,11 +245,11 @@ setTimeout(function () {
         self.attr('state', state)
         self.html(txt)
     })
-    june.on('click', function () {
+    brian.on('click', function () {
         var self = d3.select(this)
         var state = +self.attr('state')
-        var txt = 'June: '
-        var hideShow = d3.selectAll('.June')
+        var txt = 'Brian Dozier: '
+        var hideShow = d3.selectAll('.Brian')
         var display = +hideShow.style('display')
         if (state === 0) {
             state = 1
@@ -249,11 +264,11 @@ setTimeout(function () {
         self.attr('state', state)
         self.html(txt)
     })
-    july.on('click', function () {
+    eddie.on('click', function () {
         var self = d3.select(this)
         var state = +self.attr('state')
-        var txt = 'July: '
-        var hideShow = d3.selectAll('.July')
+        var txt = 'Eddie Rosario: '
+        var hideShow = d3.selectAll('.Eddie')
         var display = +hideShow.style('display')
         if (state === 0) {
             state = 1
@@ -268,11 +283,11 @@ setTimeout(function () {
         self.attr('state', state)
         self.html(txt)
     })
-    august.on('click', function () {
+    minesota.on('click', function () {
         var self = d3.select(this)
         var state = +self.attr('state')
-        var txt = 'August: '
-        var hideShow = d3.selectAll('.August')
+        var txt = 'Minesota Twins: '
+        var hideShow = d3.selectAll('.Minesota')
         var display = +hideShow.style('display')
         if (state === 0) {
             state = 1
@@ -287,25 +302,7 @@ setTimeout(function () {
         self.attr('state', state)
         self.html(txt)
     })
-    september.on('click', function () {
-        var self = d3.select(this)
-        var state = +self.attr('state')
-        var txt = 'Sept/Oct: '
-        var hideShow = d3.selectAll('.Sep')
-        var display = +hideShow.style('display')
-        if (state === 0) {
-            state = 1
-            display = 'none'
-            txt += 'show'
-        } else if (state === 1) {
-            state = 0;
-            display = 'block'
-            txt += 'hide'
-        }
-        hideShow.style('display', display)
-        self.attr('state', state)
-        self.html(txt)
-    })
+
 
 
     plot.call(chart, {
