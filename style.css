@@ -79,6 +79,14 @@ a {
     padding: 10px;
     color: white;
     margin: 0 5px;
-    box-shadow: 3px 3px 10px  rgb(141, 141, 141);
+    box-shadow: 3px 3px 5px  rgb(141, 141, 141);
     outline: none;
+    cursor: pointer;
+    font-size: 110%
+}
+.switch {
+    padding: 10px;
+    box-shadow: 3px 3px 5px  rgb(141, 141, 141);
+    outline: none;
+    cursor: pointer;
 }

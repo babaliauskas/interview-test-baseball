@@ -1,5 +1,5 @@
 var w = 800;
-var h = 600;
+var h = 550;
 var margin = {
     top: 60,
     bottom: 40,
@@ -122,7 +122,7 @@ setTimeout(function () {
             this.append('g')
                 .append('text')
                 .classed('chart-header', true)
-                .attr('transform', 'translate(-30,-20)')
+                .attr('transform', 'translate(-30,-30)')
                 .text('')
         }
     }
